@@ -1,45 +1,28 @@
 class Solution:
     def trap(self, height: list[int]) -> int:
 
-        leftPointer = 0
-        rightPointer = 1
-        waterArea = 0
-        flag = True
-        waterFlag = True
-        while rightPointer < len(height):
-            # print(f"water: {waterArea}, left: {leftPointer}, right: {rightPointer}")
-            flag = True
-            waterFlag = True
-            currentWater = 0
-            # if height[leftPointer] > 0 and height[rightPointer] > 0:
-            # print(f"water: {waterArea}, left: {leftPointer}, right: {rightPointer}")
-            if rightPointer > leftPointer:
-                checkPointer = rightPointer - 1
-                maxHeight = max(height[leftPointer], height[rightPointer])
-                minHeight = min(height[leftPointer], height[rightPointer])
-                while checkPointer > leftPointer:
-                    if rightPointer < len(height) - 1:
-                        if height[rightPointer + 1] > height[rightPointer]:
-                            # print(f"height1: {height[rightPointer+1]} ")
-                            waterFlag = False
-                    if height[checkPointer] >= maxHeight:
-                        leftPointer += 1
-                        flag = False
-                        break
-                    elif height[checkPointer] < minHeight:
-                        currentWater += minHeight - height[checkPointer]
-                        # print(minHeight, height[checkPointer])
-                    checkPointer -= 1
+        maxLeft = []
+        maxRight = []
+        maxVal = 0
+        water = 0
 
-            if waterFlag:
-                waterArea += currentWater
+        for i in range(len(height)):
+            maxVal = max(maxVal, height[i])
+            maxLeft.append(maxVal)
+        maxVal = 0
 
-            if flag:
-                rightPointer += 1
+        for i in range(len(height) - 1, -1, -1):
+            maxVal = max(maxVal, height[i])
+            maxRight.insert(0, maxVal)
 
-            # print(f"water: {waterArea}, left: {leftPointer}, right: {rightPointer}")
+        print(maxLeft)
+        print(maxRight)
 
-        return waterArea
+        for i in range(len(height)):
+            water += min(maxLeft[i], maxRight[i]) - height[i]
+        return water
+
+
 
 """
 Test Case
@@ -49,17 +32,13 @@ solution = Solution()
 print(solution.trap([0,2,0,3,1,0,1,3,2,1]))
 
 """
-Time Complexity: 
-Space Complexity: 
+Time Complexity: O(n)
+Space Complexity: O(n)
 """
 
 """
 Approach:
-Both pointers start at value 0
-Check how much water can be stored between left and right pointer 
-If right > left and no other heights between them are bigger
-Then compute current water level given the smaller height
-
-If there is a bigger height then update left pointer, otherwise update right pointer
+The water for a given index is equal to the minimum of the maximum left and max right values
+minus the height at the given index
 
 """
