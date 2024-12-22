@@ -41,4 +41,15 @@ Approach:
 The water for a given index is equal to the minimum of the maximum left and max right values
 minus the height at the given index
 
+
+Improvements using 2 points
+Start a pointer on either end
+While left < right
+If maxLeft < maxRight operate on left else operate on right
+Update Pointer and take max between new index and old max
+The difference between max and index is water to be added to res
 """
+
+
+
+
