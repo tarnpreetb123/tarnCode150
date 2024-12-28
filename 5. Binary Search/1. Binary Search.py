@@ -5,25 +5,17 @@ class Solution:
         rightPointer = len(nums) - 1
         res = -1
 
-        if leftPointer == rightPointer:
-            if nums[leftPointer] == target:
-                res = leftPointer
-
-        while leftPointer < rightPointer:
-            midPointer = int((rightPointer + leftPointer)/2)
-            # print(leftPointer, midPointer, rightPointer)
-            # print(nums, nums[midPointer], target)
+        while leftPointer <= rightPointer:
+            #(leftPointer + rightPointer)//2 might overflow if right and left add together higher than the underlying data type
+            midPointer = leftPointer + ((rightPointer - leftPointer) // 2)
 
             if nums[midPointer] < target:
-                leftPointer = midPointer+1
+                leftPointer = midPointer + 1
+            elif nums[midPointer] > target:
+                rightPointer = midPointer - 1
             else:
-                rightPointer = midPointer
-
-            midPointer = int((rightPointer + leftPointer) / 2)
-            if nums[midPointer] == target:
                 res = midPointer
                 break
-
         return res
 
 
@@ -40,10 +32,11 @@ print(solution.search([5], 5))
 
 """
 Time Complexity: O(logn)
-Space Complexity: 
+Space Complexity: O(1)
 """
 
 """
 Approach:
-Binary Search
+Binary Search, since the array is sorted look at the middle value and if target is less than or greater than we
+can eliminate half the search domain
 """

@@ -5,20 +5,14 @@ class Solution:
         freq = [0]*26
 
         for i in s:
-
-            replacements = len(window) - max(freq)
-            while replacements > k:
-                # print(window, replacements, length)
-                letter = window.pop(0)
-                # print(window, replacements, letter, length)
-                freq[ord(letter) - ord('A')] -= 1
-                replacements = len(window) - max(freq)
-
             window.append(i)
             freq[ord(i) - ord('A')] += 1
-            replacements = len(window) - max(freq)
-            if replacements <= k:
-                length = max(length, len(window))
+
+            while len(window) - max(freq) > k:
+                letter = window.pop(0)
+                freq[ord(letter) - ord('A')] -= 1
+
+            length = max(length, len(window))
 
         return length
 
