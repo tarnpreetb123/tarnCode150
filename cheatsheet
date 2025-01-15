@@ -1,0 +1,26 @@
+###
+
+ord(char) - char('a') -- will convert a char from a-z to 0-26
+[0]*26 -> makes a list of O's 26 long
+
+###
+
+sqrt -> math.sqrt()
+pow -> pow(base, exp)
+pow -> base**exp
+pow -> math.pow(base, exp)
+
+###
+stack = deque([]) #double ended queue, can pop() for stack or popleft() for queue
+queue = deque([])
+stack.pop() -- O(1)
+queue.popleft() -- O(1)
+
+#Using a list to do insert(0, value) or pop(0) is O(n)
+
+###
+minHeap = heapq.heapify([])
+heapq.heappush(minHeap, val)
+minVal = heapq.heappop(minHeap)
+
+###
