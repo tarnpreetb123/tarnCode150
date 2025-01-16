@@ -1,38 +1,44 @@
 class Solution:
-    def solveNQueens(self, n: int) -> List[List[str]]:
+    def solveNQueens(self, n: int) -> list[list[str]]:
         res = []
+        board = [['.'] * n for _ in range(n)]
 
-        def dfs(currRow, currCol, sol, diag1, diag2, row, col):
+        def dfs(row, sol, diag1, diag2):
 
-            # print(currRow, row, currCol, col)
-            if len(row) == n:
-                res.append(sol)
+            if row == n:
+                copy = ["".join(r) for r in board]
+                res.append(copy)
                 return
 
-            for i in range(n):
-                for j in range(n):
-                    if i not in row and j not in col and i + j not in diag1 and i - j not in diag2:
-                        dfs(i, j, sol + [(i, j)], diag1 + [i + j], diag2 + [i - j], row + [i], col + [j])
+            for col in range(n):
+                if col not in sol and row + col not in diag1 and row - col not in diag2:
+                    board[row][col] = 'Q'
+                    dfs(row + 1, sol + [col], diag1 + [row + col], diag2 + [row - col])
+                    board[row][col] = '.'
 
-        dfs(0, 0, [], [], [], [], [])
-
-        unique = []
-        for i in res:
-            i.sort()
-            unique.append(tuple(i))
-        unique = list(set(unique))
-
-        res = []
-        for i in unique:
-            print(i)
-            board = [["."] * n for i in range(n)]
-
-            for q in i:
-                board[q[0]][q[1]] = "Q"
-
-            sol = ["".join(j) for j in board]
-            res.append(sol)
-
-        print(res)
+        dfs(0, [], [], [])
 
         return res
+
+"""
+Test Case:
+Input: n = 4
+
+Output: [[".Q..","...Q","Q...","..Q."],["..Q.","Q...","...Q",".Q.."]]
+
+Input: n = 1
+
+Output: [["Q"]]
+
+"""
+
+"""
+Time Complexity: O(n!) -> given n rows, we are trying column options which leads to n! choices to make
+Space Complexity: O(n^2) ->  n by n board size, sol, diag1, diag2 are n but the board is n by n
+"""
+
+"""
+Approach:
+For every digit, go through all letters and dfs down the graph, if the graph ends then the base case takes over the the sol is added to results
+
+"""
