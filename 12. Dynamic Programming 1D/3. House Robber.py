@@ -24,6 +24,6 @@ Space Complexity: O(1) -> 2 variables
 Approach:
 
 DP approach, at each n house, compute the maxRobbed as going down the street
-Either we rob the nth house which means we can rob up to n-2 hours plus n
+Either we rob the nth house which means we can rob up to n-2 houses plus n
 or we don't rob the nth house which means we can rob up to n-1 and have to skip n
 """

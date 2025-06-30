@@ -27,6 +27,6 @@ solution = Solution()
 print(solution.isAnagram('racecar', 'carrace'))
 
 """
-Time Complexity: 
-Space Complexity:
+Time Complexity: O(n+m), n is length of first string, m is length of second string
+Space Complexity: O(1)
 """
